@@ -1,6 +1,6 @@
 <template>
   <div class="col-6">
-    <img  class="img-fluid" :src="ValidURL(post.thumb) ? post.thumb : 'storage/' + post.thumb" alt="">
+    <img  class="img-fluid" :src="isValidUrl(post.thumb) ? post.thumb : 'storage/' + post.thumb" alt="">
     <h3>{{ post.title }}</h3>
   </div>
 </template>
@@ -11,17 +11,17 @@ export default {
     props:['post'],
 
     methods:{
-    ValidURL(str) {
-    var regex = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
-        if(!regex .test(str)) {
-            return false;
-        } else {
-            return true;
-        }
-    },
-    }
+      isValidUrl(url){
+      try {
+        new URL(url);
+      } catch (e) {
+        console.error(e);
+        return false;
+      }
+      return true;
+  },
 }
-
+}
 </script>
 
 <style>
