@@ -1956,15 +1956,14 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
+  return _c("div", [_c("ul", _vm._l(_vm.posts, function (post) {
+    return _c("li", {
+      key: post.id
+    }, [_vm._v("\n             " + _vm._s(post.title) + "\n         ")]);
+  }), 0)]);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", [_c("h1", [_vm._v("\n         Ciao sono un titolone\n     ")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
