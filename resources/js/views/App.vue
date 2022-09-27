@@ -1,16 +1,14 @@
 <template>
-   <div>
-       <ul>
-            <li v-for="post in posts" :key="post.id" >
-                {{ post.title }}
-            </li>
-       </ul>
-   </div>
+
+<div class="container">
+    <PostCard v-for="post in posts" :key="post.id" :post="post"/>
+</div>
+
 </template>
 
 <script>
 import Axios from 'axios';
-
+import PostCard from '../components/PostCard';
 export default {
     name: "App",
     data:function(){
@@ -19,7 +17,7 @@ export default {
         }
     },
     components:{
-
+        PostCard,
     },
     methods:{
         getPosts(postsPage = 1){
