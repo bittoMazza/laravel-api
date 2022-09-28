@@ -63,10 +63,7 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        /* $post = Post::all();
-        $tag = Tag::findOrFail($id); */
-        $post = Tag::findOrFail($id);
-        dd($post->posts);
+        $tag = Tag::findOrFail($id); 
         return view('admin.tags.show',compact('tag'));
     }
 

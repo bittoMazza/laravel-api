@@ -1,5 +1,5 @@
 <template>
-  <div class="col-6">
+  <div class="col-3">
     <img  class="img-fluid" :src="isValidUrl(post.thumb) ? post.thumb : 'storage/' + post.thumb" alt="">
     <h3>{{ post.title }}</h3>
   </div>

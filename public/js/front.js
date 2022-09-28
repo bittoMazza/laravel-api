@@ -1911,14 +1911,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['post'],
   methods: {
-    ValidURL: function ValidURL(str) {
-      var regex = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
-
-      if (!regex.test(str)) {
+    isValidUrl: function isValidUrl(url) {
+      try {
+        new URL(url);
+      } catch (e) {
+        console.error(e);
         return false;
-      } else {
-        return true;
       }
+
+      return true;
     }
   }
 });
@@ -1943,7 +1944,8 @@ __webpack_require__.r(__webpack_exports__);
   name: "App",
   data: function data() {
     return {
-      posts: []
+      posts: [],
+      tags: []
     };
   },
   components: {
@@ -1962,10 +1964,20 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.error(error);
       });
+    },
+    getTags: function getTags() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/tags', {}).then(function (response) {
+        _this2.tags = response.data.results.data;
+      })["catch"](function (error) {
+        console.error(error);
+      });
     }
   },
   created: function created() {
     this.getPosts();
+    this.getTags();
   }
 });
 
@@ -1987,11 +1999,11 @@ var render = function render() {
       _c = _vm._self._c;
 
   return _c("div", {
-    staticClass: "col-6"
+    staticClass: "col-3"
   }, [_c("img", {
     staticClass: "img-fluid",
     attrs: {
-      src: _vm.ValidURL(_vm.post.thumb) ? _vm.post.thumb : "storage/" + _vm.post.thumb,
+      src: _vm.isValidUrl(_vm.post.thumb) ? _vm.post.thumb : "storage/" + _vm.post.thumb,
       alt: ""
     }
   }), _vm._v(" "), _c("h3", [_vm._v(_vm._s(_vm.post.title))])]);
@@ -2031,7 +2043,22 @@ var render = function render() {
         post: post
       }
     });
-  }), 1)]);
+  }), 1), _vm._v(" "), _c("div", {
+    staticClass: "py-5"
+  }, [_c("h2", {
+    staticClass: "text-center py-4"
+  }, [_vm._v("Titoli dei post per ogni tag")]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex flex-wrap justify-content-center"
+  }, _vm._l(_vm.tags, function (tag) {
+    return _c("div", {
+      key: tag.id,
+      staticClass: "col-4"
+    }, [_c("h3", [_vm._v(_vm._s(tag.name))]), _vm._v(" "), _c("ul", _vm._l(tag.posts, function (post) {
+      return _c("li", {
+        key: post.id
+      }, [_vm._v("\r\n                            " + _vm._s(post.title) + "\r\n                        ")]);
+    }), 0)]);
+  }), 0)])]);
 };
 
 var staticRenderFns = [];
