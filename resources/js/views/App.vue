@@ -7,17 +7,10 @@
     </div>
 
     <div class="py-5">
-            <h2 class="text-center py-4">Titoli dei post per ogni tag</h2>
-            <div class="d-flex flex-wrap justify-content-center"> 
-                <div v-for="tag in tags" :key="tag.id" class="col-4">
-                    <h3>{{ tag.name }}</h3>
-                    <ul>
-                        <li v-for="post  in tag.posts" :key="post.id">
-                            {{ post.title }}
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <h2 class="text-center py-4">Titoli dei post per ogni tag</h2>
+        <div class="d-flex flex-wrap justify-content-center">
+            <TagCard v-for="tag in tags" :key="tag.id" :tag="tag"/> 
+        </div>
     </div>
 </div>
 
@@ -26,6 +19,8 @@
 <script>
 import Axios from 'axios';
 import PostCard from '../components/PostCard';
+import TagCard from '../components/TagCard';
+
 export default {
     name: "App",
     data:function(){
@@ -36,6 +31,7 @@ export default {
     },
     components:{
         PostCard,
+        TagCard,
     },
     methods:{
         getPosts(postsPage = 1){
