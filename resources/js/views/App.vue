@@ -27,6 +27,7 @@ export default {
         return{
             posts : [],
             tags : [],
+            isLoading : true,
         }
     },
     components:{
@@ -40,6 +41,7 @@ export default {
             }).then((response) => {
                 console.log(response.data.results);
                 this.posts = response.data.results.data;
+                /* a fine chiamata torniamo un isLoading = false */
             }).catch((error) => {
                 console.error(error);
             })
